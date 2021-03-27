@@ -170,4 +170,4 @@ public class KjedetMengde<T> implements MengdeADT<T> {
 		antall++;
 	}
 
-}// class
+}

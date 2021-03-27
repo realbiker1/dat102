@@ -44,6 +44,7 @@ public class InordenIterator<T> implements Iterator<T>{
      * Returnerer det neste elementet i iterasjonen hvis det fins.
      *
      */
+  
  public T next() {
   T resultat = null;  
   
@@ -63,10 +64,19 @@ public class InordenIterator<T> implements Iterator<T>{
  }
  
  
- public void remove() {
+ public BinaerTreNode<T> getAktuell() {
+		return aktuell;
+	}
+
+	public void setAktuell(BinaerTreNode<T> aktuell) {
+		this.aktuell = aktuell;
+	}
+
+public void remove() {
   // Ikke implementert
   
  }
+
  
  
 }//
