@@ -147,7 +147,7 @@ public class KjedetBSTre<T extends Comparable<T>> implements BSTreADT<T>,Iterabl
 		} else if (element.compareTo(p.getElement()) == 0){
 			//If setningene her behandler tilfeller der noden som skal slettes har 0, 1 eller 2 barn.
 			//Hvis 1 eller 0 barn.
-			if (p.getVenstre() == null) {				
+			if (p.getVenstre() == null) {
 				return p.getHoyre();
 				
 			} else if (p.getHoyre() == null) {
@@ -156,9 +156,7 @@ public class KjedetBSTre<T extends Comparable<T>> implements BSTreADT<T>,Iterabl
 			} else {				
 				p.setElement(minsteVerdi(p.getHoyre()));
 			}	
-
-			p.setHoyre(fjernRek(p.getHoyre(), p.getElement()));
-			
+			p.setHoyre(fjernRek(p.getHoyre(), p.getElement()));			
 		}
 		return p;	
 	}
@@ -249,8 +247,6 @@ public class KjedetBSTre<T extends Comparable<T>> implements BSTreADT<T>,Iterabl
 		return finnRek(element, n.getHoyre());
 	}
 	
-	
-
 	/************************************************************************
 	 * Returnerer en referanse til det spesifiserte elementet hvis det fins i dette
 	 * BS-treet, null ellers. Uten bruk av rekursjon. /
@@ -286,21 +282,48 @@ public class KjedetBSTre<T extends Comparable<T>> implements BSTreADT<T>,Iterabl
 	public Iterator<T> iterator() {
 		return new InordenIterator<T>(rot);		
 	}
-
+	
 	@Override
-	public int hoyde(BinaerTreNode<T> n) {
+	public int hoyde() {
+		return hoydeRek(rot);
+	}
+	
+	private int hoydeRek(BinaerTreNode<T> n) {
 		
 		if (n == null) {
 			return -1;
 		}
 		
-		int hVenstre = hoyde(n.getVenstre());
-		int hHoyre = hoyde(n.getHoyre());
+		int hVenstre = hoydeRek(n.getVenstre());
+		int hHoyre = hoydeRek(n.getHoyre());
 		
 		if (hVenstre > hHoyre) {
 			return hVenstre + 1;
 		} else {
 			return hHoyre + 1;
 		}
+	}
+	
+	public void skrivVerdier(T nedre, T ovre){
+		 skrivVerdierRek(rot, nedre, ovre);
+	}
+	
+	private void skrivVerdierRek(BinaerTreNode<T> t, T min, T maks){
+		System.out.println("good");
+		if (t == null) {
+			return;
+		}
+		if (t.getElement().compareTo(min) < 0) {
+			skrivVerdierRek(t.getHoyre(), min, maks);
+			return;
+		}
+		if (t.getElement().compareTo(maks) > 0) {
+			skrivVerdierRek(t.getVenstre(), min, maks);
+			return;
+		}
+		skrivVerdierRek(t.getHoyre(), min, maks);
+		System.out.println(t.getElement() + " ");
+		skrivVerdierRek(t.getVenstre(), min, maks);
+		
 	}
 }// class

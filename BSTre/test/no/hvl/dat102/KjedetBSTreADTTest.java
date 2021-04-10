@@ -1,12 +1,20 @@
 package no.hvl.dat102;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Stack;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class KjedetBSTreADTTest {
 
 	private KjedetBSTre<Integer> bs;
+	InordenIterator<Integer> tre;
+	BinaerTreNode<Integer> rot;
+	
 	// Testdata som legges inn i treet
 	private Integer e0 = 1;
 	private Integer e1 = 2;
@@ -35,11 +43,18 @@ public class KjedetBSTreADTTest {
 	 */
 	@Test
 	public final void erElementIBSTre() {
-		/*
-		 * Her legger du inn e0...e6 i treet i en vilkårlig rekkefølge. Etterpå sjekker
-		 * du om elementene fins og til slutt sjekker du at e7 ikke fins
-		 */
-
+		
+		bs.leggTil(e0);
+		bs.leggTil(e5);
+		bs.leggTil(e2);
+		bs.leggTil(e4);
+		bs.leggTil(e6);
+		bs.leggTil(e1);
+		bs.leggTil(e3);
+		
+		assertEquals(bs.finn(e2), 3);
+		assertEquals(bs.finn2(e6), 7);
+		assertEquals(bs.finn(e7), null);
 	}
 
 	/**
@@ -48,10 +63,24 @@ public class KjedetBSTreADTTest {
 	 */
 	@Test
 	public final void erBSTreOrdnet() {
-		/*
-		 * Her legge du først inn e0...e6 i en vilkårlig rekkefølge og så fjerne du
-		 * minste hele tiden
-		 */
+		bs.leggTil(e6);
+		bs.leggTil(e5);
+		bs.leggTil(e2);
+		bs.leggTil(e4);
+		bs.leggTil(e0);
+		bs.leggTil(e1);
+		bs.leggTil(e3);
+		
+		assertFalse(bs.erTom());
+		
+		Integer el[] = { e0, e1, e2, e3, e4, e5, e6 };
+		for (int i = 0; i < el.length-1; i++) {
+			
+			assertEquals(bs.finn(el[i]), i+1);
+			bs.fjernMin();
+			assertEquals(bs.finn(el[i]), null);
+		}	
+
 	}
 
 	/**
@@ -60,20 +89,9 @@ public class KjedetBSTreADTTest {
 	 */
 	@Test
 	public final void erBSTreOrdnet2() {
-		bs.leggTil(e3);
-		bs.leggTil(e2);
-		bs.leggTil(e4);
-		bs.leggTil(e1);
-		bs.leggTil(e5);
-		bs.leggTil(e0);
-		bs.leggTil(e6);
-
-		Integer el[] = { e0, e1, e2, e3, e4, e5, e6 };
-		int i = 0;
-		for (Integer e : bs) {
-			assertEquals(el[i], e);
-			i++;
-		}
+		
+	
+		
 
 	}
 

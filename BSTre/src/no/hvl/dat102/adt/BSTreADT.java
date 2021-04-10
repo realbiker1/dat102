@@ -75,5 +75,5 @@ public interface BSTreADT<T extends Comparable<T>> {
 	 * @param binaerTreNode
 	 * @return
 	 */
-	int hoyde(BinaerTreNode<T> binaerTreNode);
+	int hoyde();
 }
